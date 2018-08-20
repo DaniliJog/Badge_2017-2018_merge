@@ -837,6 +837,7 @@ main(void)
 		if (apressed && bpressed) {
 			if (i == 0) {
 				debugthing = '0';
+				snake();
 			} else if (i == 1) {
 				debugthing = '1';
 			} else if (i == 2) {
@@ -845,3 +846,149 @@ main(void)
 		}
 	}
 }
+
+// init snakeloop
+//
+void snake(void) {
+	unsigned short i = 0, k = 0, sleeptime = 310, 
+		len = 5, skip = 0, finished = 0;
+	char direction = 'r';
+	int diri = 0;  // XXX: homebrew
+	struct pos path[256];
+        struct pos point;
+
+	display_clear(&dp);
+	display_text_location(&dp, 2, 3);
+
+	// Draw edges
+	// XXX: Don't draw edges. because the screen is foobar
+	// for (i=0; i < 128; i++){
+	// 	display_set(&dp, i, 0);
+	// 	display_set(&dp, i, 63);
+	// }
+
+  //       for (i=1; i < 63; i++){
+  //               display_set(&dp, 0, i);
+  //               display_set(&dp, 127, i);
+  //       }
+
+	// start position
+	unsigned short currentX = 10,
+		       currentY = 10,
+		       last = 0;
+
+	// '4' Guaranteed to be randomly -- chosen by fair dice
+        srand(4);
+
+	point.x = 17;
+	point.y = 17;
+	display_set(&dp, point.y, point.x);
+	
+	display_update(&dp);
+
+	// XXX: define directions array
+	char dirs[] = {'r', 'u', 'l', 'd'};
+
+	i = 0;
+	while (1) {
+		switch (event_pop()) {
+                case EVENT_BUTTON_A_DOWN:
+                        	// direction = 'l';
+													diri = (diri + 1) % (sizeof(dirs) / sizeof(char));
+													direction = dirs[diri];
+                        break;
+                case EVENT_BUTTON_B_DOWN:
+                        	// direction = 'r';
+													diri = (diri - 1) % (sizeof(dirs) / sizeof(char));
+													direction = dirs[diri];
+                        break;
+
+//              case EVENT_BUTTON_X_DOWN:
+//			if (direction != 'u')
+//                        	direction = 'd';
+//                        break;
+//                case EVENT_BUTTON_Y_DOWN:
+//			if (direction != 'd')
+//                        	direction = 'u';
+//                        break;
+
+                case EVENT_BUTTON_POWER_UP:
+                        NVIC_DisableIRQ(RTC_IRQn);
+                        NVIC_DisableIRQ(GPIO_EVEN_IRQn);
+                        NVIC_DisableIRQ(GPIO_ODD_IRQn);
+
+                        display_off(&dp);
+                        gpio_uninit();
+                        enter_em4();
+                        break;
+                default:
+                        // do nothing
+                        break;
+                }
+
+		if (finished) {
+			msleep(10);
+			// wait for interrupt
+			__WFI();
+			continue;
+		}
+
+
+		if (direction == 'd'){
+			++currentX;
+		} else if (direction == 'u'){
+			--currentX;
+		} else if (direction == 'l'){
+			--currentY;
+		} else if (direction == 'r'){
+			++currentY;
+		}
+
+		path[i].x = currentX;
+		path[i].y = currentY;
+                i = (i + 1) % ARRAY_SIZE(path);
+
+
+		// When we should start deleting the last elemnt of the snake
+		if (k > 5 && !skip) {
+			display_set(&dp, path[last].y, path[last].x);
+			last = (last + 1) % ARRAY_SIZE(path);
+		} else {
+			skip = 0;
+			k++;
+		}
+
+		// Did we eat a point?
+		if (currentX == point.x && currentY == point.y){
+			len += 1;
+			skip = 1;
+			sleeptime = sleeptime - sleeptime / 4;
+			
+			// Get net point, and put on map
+			point = getRandomPos();
+	                display_set(&dp, point.y, point.x);
+		} else if (display_get(&dp, currentY, currentX)){
+			// Did we hit ourself?
+			finished = 1;
+			lost(len);
+                } else {
+			display_set(&dp, currentY, currentX);
+		}
+
+                display_update(&dp);
+
+
+		// Did we hit the wall?
+		// XXX: NO
+		// if (currentY == 127 || currentY == 0 || currentX == 0 || currentX == 63){
+		// 	finished = 1;
+		// 	lost(len);
+		// }
+
+
+		msleep(sleeptime);
+
+	}
+
+}
+
