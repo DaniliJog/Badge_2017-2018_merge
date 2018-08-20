@@ -844,6 +844,7 @@ void snake(void) {
 
 		// When we should start deleting the last elemnt of the snake
 		if (k > 5 && !skip) {
+			printf("Z");
 			display_set(&dp, path[last].y, path[last].x);
 			last = (last + 1) % ARRAY_SIZE(path);
 		} else {
