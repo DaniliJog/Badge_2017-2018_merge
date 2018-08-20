@@ -853,6 +853,7 @@ void snake(void) {
 
 		// Did we eat a point?
 		if (currentX == point.x && currentY == point.y){
+			printf("x: %i\ny: %i", point.x, point.y);
 			len += 1;
 			skip = 1;
 			sleeptime = sleeptime - sleeptime / 4;
