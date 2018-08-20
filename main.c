@@ -205,7 +205,8 @@ display_set(struct display *dp, unsigned int x, unsigned int y)
 	unsigned int idx = 8*x + y/8;
 	uint8_t mask = 1 << (y & 0x7U);
 
-	dp->framebuf[idx] |= mask;
+	dp->framebuf[idx] ^= mask;
+	// dp->framebuf[idx] |= mask;
 }
 
 static void __unused
@@ -748,7 +749,7 @@ void snake(void) {
 	char direction = 'r';
 	int diri = 0;  // XXX: homebrew
 	struct pos path[256];
-        struct pos point;
+	struct pos point;
 
 	display_clear(&dp);
 	display_text_location(&dp, 2, 3);
@@ -796,15 +797,6 @@ void snake(void) {
 													direction = dirs[diri];
                         break;
 
-//              case EVENT_BUTTON_X_DOWN:
-//			if (direction != 'u')
-//                        	direction = 'd';
-//                        break;
-//                case EVENT_BUTTON_Y_DOWN:
-//			if (direction != 'd')
-//                        	direction = 'u';
-//                        break;
-
                 case EVENT_BUTTON_POWER_UP:
                         NVIC_DisableIRQ(RTC_IRQn);
                         NVIC_DisableIRQ(GPIO_EVEN_IRQn);
@@ -826,7 +818,6 @@ void snake(void) {
 			continue;
 		}
 
-
 		if (direction == 'd'){
 			++currentX;
 		} else if (direction == 'u'){
@@ -839,12 +830,10 @@ void snake(void) {
 
 		path[i].x = currentX;
 		path[i].y = currentY;
-                i = (i + 1) % ARRAY_SIZE(path);
-
+    i = (i + 1) % ARRAY_SIZE(path);
 
 		// When we should start deleting the last elemnt of the snake
 		if (k > 5 && !skip) {
-			printf("Z");
 			display_set(&dp, path[last].y, path[last].x);
 			last = (last + 1) % ARRAY_SIZE(path);
 		} else {
@@ -866,11 +855,10 @@ void snake(void) {
 			// Did we hit ourself?
 			finished = 1;
 			lost(len);
-                } else {
+		} else {
 			display_set(&dp, currentY, currentX);
 		}
-
-                display_update(&dp);
+    display_update(&dp);
 
 
 		// Did we hit the wall?
