@@ -835,7 +835,7 @@ main(void)
 
 		}
 		if (apressed && bpressed) {
-			debugthing = 1;
+			debugthing = '1';
 		}
 	}
 }
