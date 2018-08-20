@@ -768,7 +768,8 @@ main(void)
 					"%c debugthing",
 					(i==0) ? '*' : ' ',
 					(i==1) ? '*' : ' ',
-					(i==2) ? '*' : ' ', debugthing);
+					(i==2) ? '*' : ' ',
+					debugthing);
 			display_update(&dp);
 			break;
 
@@ -794,7 +795,7 @@ main(void)
 				i++;
 
 			if (apressed) {
-				printf("WOW TEXT\n");
+				debugthing = '1';
 			}
 			break;
 
