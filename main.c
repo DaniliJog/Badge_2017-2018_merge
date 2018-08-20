@@ -757,7 +757,7 @@ main(void)
 			printf("TEST MENU"
 					"%c Menu item 1",
 					"%c Menu item 2",
-					"%c Menu item 3"
+					"%c Menu item 3",
 					(i==0) ? '*' : ' ',
 					(i==1) ? '*' : ' ',
 					(i==2) ? '*' : ' ');
