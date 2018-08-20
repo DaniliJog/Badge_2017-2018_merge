@@ -754,10 +754,10 @@ main(void)
 		switch (event_pop()) {
 		case EVENT_LAST:
 			display_clear(&dp);
-			printf("TEST MENU"
-					"%c Menu item 1"
-					"%c Menu item 2"
-					"%c Menu item 3",
+			printf("TEST MENU\n"
+					"%c Menu item 1\n"
+					"%c Menu item 2\n"
+					"%c Menu item 3\n",
 					(i==0) ? '*' : ' ',
 					(i==1) ? '*' : ' ',
 					(i==2) ? '*' : ' ');
