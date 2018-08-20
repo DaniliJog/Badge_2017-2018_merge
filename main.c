@@ -755,6 +755,7 @@ main(void)
 	unsigned int NO_OF_ELEMENTS = 3;
 	char debugthing = '0';
 	bool apressed = false;
+	bool bpressed = false;
 
 	while (1) {
 		switch (event_pop()) {
@@ -766,9 +767,9 @@ main(void)
 					"%c Thing 2\n"
 					"%c Thing 3\n"
 					"%c debugthing",
-					(i==0) ? '*' : ' ',
-					(i==1) ? '*' : ' ',
-					(i==2) ? '*' : ' ',
+					(i==0) ? '>' : ' ',
+					(i==1) ? '>' : ' ',
+					(i==2) ? '>' : ' ',
 					debugthing);
 			display_update(&dp);
 			break;
@@ -791,13 +792,18 @@ main(void)
 			apressed = true;
 			break;
 
+		case EVENT_BUTTON_A_UP:
+			apressed = false;
+			break;
+
 		case EVENT_BUTTON_B_DOWN:
 			if (i < NO_OF_ELEMENTS - 1)
 				i++;
+			bpressed = false;
+			break;
 
-			if (apressed) {
-				debugthing = '1';
-			}
+		case EVENT_BUTTON_B_UP:
+			bpressed = false;
 			break;
 
 		// XXX: Don't use X and Y buttons on 2018 badge
@@ -823,12 +829,15 @@ main(void)
 			enter_em4();
 			break;
 
-
 		default:
 			/* do nothing */
 			break;
 
-		apressed = false;
+		if (apressed && bpressed) {
+			debugthing = 1;
+		}
+
+
 		}
 	}
 }
