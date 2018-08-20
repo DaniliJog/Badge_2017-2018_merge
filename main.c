@@ -894,10 +894,11 @@ main(void)
 
 
 		// Did we hit the wall?
-		if (currentY == 127 || currentY == 0 || currentX == 0 || currentX == 63){
-			finished = 1;
-			lost(len);
-		}
+		// XXX: NO
+		// if (currentY == 127 || currentY == 0 || currentX == 0 || currentX == 63){
+		// 	finished = 1;
+		// 	lost(len);
+		// }
 
 
 		msleep(sleeptime);
