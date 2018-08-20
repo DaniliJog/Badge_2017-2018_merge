@@ -736,9 +736,10 @@ main(void)
 	display_on(&dp);
 
 	/* initialize RGB diode */
-	rgb_init();
-	rgb_on();
-	rgb_enabled = true;
+	// XXX: dont use RGB
+	// rgb_init();
+	// rgb_on();
+	// rgb_enabled = true;
 
 	/* make sure the POWER button is released */
 	while (!gpio_in(GPIO_PC4))
@@ -749,6 +750,9 @@ main(void)
 	buttons_init();
 
 	ticker_run(&tick500, EVENT_TICK500, 500);
+
+	// XXX: remember to update # of items
+	NO_OF_ELEMENTS = 3
 
 	while (1) {
 		switch (event_pop()) {
@@ -764,33 +768,44 @@ main(void)
 					(i==2) ? '*' : ' ');
 			display_update(&dp);
 			break;
-		case EVENT_TICK500:
-			if (rgb_enabled) {
-				rgb_off();
-				rgb_enabled = false;
-			} else {
-				rgb_on();
-				rgb_enabled = true;
-			}
+
+	  // XXX: not using
+		// case EVENT_TICK500:
+		// 	if (rgb_enabled) {
+		// 		rgb_off();
+		// 		rgb_enabled = false;
+		// 	} else {
+		// 		rgb_on();
+		// 		rgb_enabled = true;
+		// 	}
+		// 	break;
+
+		// BUTTONS
+		case EVENT_BUTTON_A_DOWN && EVENT_BUTTON_B_DOWN:
+				printf("WOW BUTTON PRESS\n");
 			break;
 		case EVENT_BUTTON_A_DOWN:
 			if (i > 0)
 				i--;
 			break;
+
 		case EVENT_BUTTON_B_DOWN:
-			if (i < 2)
+			if (i < NO_OF_ELEMENTS - 1)
 				i++;
-			break;
-		case EVENT_BUTTON_X_DOWN:
-			if (rgb[i] > 0)
-				rgb[i]--;
-			rgb_set(rgb[0], rgb[1], rgb[2]);
-			break;
-		case EVENT_BUTTON_Y_DOWN:
-			if (rgb[i] < RGB_STEPS-1)
-				rgb[i]++;
-			rgb_set(rgb[0], rgb[1], rgb[2]);
-			break;
+
+		// XXX: Don't use X and Y buttons on 2018 badge
+		// case EVENT_BUTTON_X_DOWNg
+		// 	if (rgb[i] > 0)
+		// 		rgb[i]--;
+		// 	rgb_set(rgb[0], rgb[1], rgb[2]);
+		// 	break;
+
+		// case EVENT_BUTTON_Y_DOWN:
+		// 	if (rgb[i] < RGB_STEPS-1)
+		// 		rgb[i]++;
+		// 	rgb_set(rgb[0], rgb[1], rgb[2]);
+		// 	break;
+
 		case EVENT_BUTTON_POWER_UP:
 			NVIC_DisableIRQ(RTC_IRQn);
 			NVIC_DisableIRQ(GPIO_EVEN_IRQn);
@@ -800,6 +815,8 @@ main(void)
 			gpio_uninit();
 			enter_em4();
 			break;
+
+
 		default:
 			/* do nothing */
 			break;
