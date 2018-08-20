@@ -754,7 +754,8 @@ main(void)
 		switch (event_pop()) {
 		case EVENT_LAST:
 			display_clear(&dp);
-			printf("TEST MENU\n"
+			printf("\n\n"
+					"TEST MENU\n"
 					"%c Menu item 1\n"
 					"%c Menu item 2\n"
 					"%c Menu item 3\n",
