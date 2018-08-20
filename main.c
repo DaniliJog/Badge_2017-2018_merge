@@ -701,9 +701,9 @@ void __noreturn
 main(void)
 {
 	unsigned int i = 0;
-	unsigned int rgb[3] = { 0, 0, 0 };
+	// unsigned int rgb[3] = { 0, 0, 0 };
 	struct ticker_data tick500;
-	bool rgb_enabled;
+	// bool rgb_enabled;
 
 	/* auxhfrco is only needed when programming flash */
 	clock_auxhfrco_disable();
@@ -752,7 +752,7 @@ main(void)
 	ticker_run(&tick500, EVENT_TICK500, 500);
 
 	// XXX: remember to update # of items
-	NO_OF_ELEMENTS = 3
+	unsigned int NO_OF_ELEMENTS = 3;
 
 	while (1) {
 		switch (event_pop()) {
@@ -760,9 +760,9 @@ main(void)
 			display_clear(&dp);
 			printf("\n\n"
 					"TEST MENU\n"
-					"%c Menu item 1\n"
-					"%c Menu item 2\n"
-					"%c Menu item 3\n",
+					"%c Snake\n"
+					"%c Something else\n"
+					"%c Something good\n",
 					(i==0) ? '*' : ' ',
 					(i==1) ? '*' : ' ',
 					(i==2) ? '*' : ' ');
@@ -781,17 +781,18 @@ main(void)
 		// 	break;
 
 		// BUTTONS
-		case EVENT_BUTTON_A_DOWN && EVENT_BUTTON_B_DOWN:
-				printf("WOW BUTTON PRESS\n");
-			break;
 		case EVENT_BUTTON_A_DOWN:
 			if (i > 0)
 				i--;
-			break;
+			bool apressed = true;
 
 		case EVENT_BUTTON_B_DOWN:
 			if (i < NO_OF_ELEMENTS - 1)
 				i++;
+			if (apressed) {
+				printf("WOW TEXT\n");
+			}
+			break;
 
 		// XXX: Don't use X and Y buttons on 2018 badge
 		// case EVENT_BUTTON_X_DOWNg
