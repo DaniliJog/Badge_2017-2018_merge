@@ -765,7 +765,7 @@ main(void)
 					"TEST MENU\n"
 					"%c Snake\n"
 					"%c wiz\n"
-					"%c (the best)\n"
+					"%c (the beast)\n"
 					"%c debugthing",
 					(i==0) ? '>' : ' ',
 					(i==1) ? '>' : ' ',
