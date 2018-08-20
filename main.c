@@ -764,8 +764,8 @@ main(void)
 			printf("\n\n"
 					"TEST MENU\n"
 					"%c Snake\n"
-					"%c Thing 2\n"
-					"%c Thing 3\n"
+					"%c wiz\n"
+					"%c (the best)\n"
 					"%c debugthing",
 					(i==0) ? '>' : ' ',
 					(i==1) ? '>' : ' ',
@@ -787,7 +787,7 @@ main(void)
 
 		// BUTTONS
 		case EVENT_BUTTON_A_DOWN:
-			if (i > 0)
+			if (i > 0 && !apressed)
 				i--;
 			apressed = true;
 			break;
@@ -797,7 +797,7 @@ main(void)
 			break;
 
 		case EVENT_BUTTON_B_DOWN:
-			if (i < NO_OF_ELEMENTS - 1)
+			if (i < NO_OF_ELEMENTS - 1 && !bpressed)
 				i++;
 			bpressed = false;
 			break;
