@@ -788,7 +788,7 @@ main(void)
 		// BUTTONS
 		case EVENT_BUTTON_A_DOWN:
 			apressed = true;
-			if (i > 0 &&)
+			if (i > 0)
 				i--;
 			break;
 
