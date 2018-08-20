@@ -757,7 +757,8 @@ main(void)
 	unsigned short i = 0, k = 0, sleeptime = 310, 
 		len = 5, skip = 0, finished = 0;
 	unsigned int rgb[3] = { 0, 0, 0 };
-	char direction = 'd';
+	char direction = 'r';
+	int diri = 0;  // XXX: homebrew
 	struct pos path[256];
         struct pos point;
 
@@ -789,6 +790,9 @@ main(void)
 	
 	display_update(&dp);
 
+	// XXX: define directions array
+	char dirs[] = {'r', 'u', 'l', 'd'};
+
 	i = 0;
 	while (1) {
 /*		// Blink on each 'tic'
@@ -803,21 +807,25 @@ main(void)
 
 		switch (event_pop()) {
                 case EVENT_BUTTON_A_DOWN:
-			if (direction != 'r')
-                        	direction = 'l';
+                        	// direction = 'l';
+													diri = (diri + 1) % (sizeof(dirs) / sizeof(char));
+													direction = dirs[diri];
                         break;
                 case EVENT_BUTTON_B_DOWN:
-			if (direction != 'l')
-                        	direction = 'r';
+                        	// direction = 'r';
+													diri = (diri - 1) % (sizeof(dirs) / sizeof(char));
+													direction = dirs[diri];
                         break;
-                case EVENT_BUTTON_X_DOWN:
-			if (direction != 'u')
-                        	direction = 'd';
-                        break;
-                case EVENT_BUTTON_Y_DOWN:
-			if (direction != 'd')
-                        	direction = 'u';
-                        break;
+
+//              case EVENT_BUTTON_X_DOWN:
+//			if (direction != 'u')
+//                        	direction = 'd';
+//                        break;
+//                case EVENT_BUTTON_Y_DOWN:
+//			if (direction != 'd')
+//                        	direction = 'u';
+//                        break;
+
                 case EVENT_BUTTON_POWER_UP:
                         NVIC_DisableIRQ(RTC_IRQn);
                         NVIC_DisableIRQ(GPIO_EVEN_IRQn);
