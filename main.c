@@ -766,15 +766,16 @@ main(void)
 	display_text_location(&dp, 2, 3);
 
 	// Draw edges
-	for (i=0; i < 128; i++){
-		display_set(&dp, i, 0);
-		display_set(&dp, i, 63);
-	}
+	// XXX: Don't draw edges. because the screen is foobar
+	// for (i=0; i < 128; i++){
+	// 	display_set(&dp, i, 0);
+	// 	display_set(&dp, i, 63);
+	// }
 
-        for (i=1; i < 63; i++){
-                display_set(&dp, 0, i);
-                display_set(&dp, 127, i);
-        }
+  //       for (i=1; i < 63; i++){
+  //               display_set(&dp, 0, i);
+  //               display_set(&dp, 127, i);
+  //       }
 
 	// start position
 	unsigned short currentX = 10,
