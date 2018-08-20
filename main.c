@@ -754,9 +754,9 @@ main(void)
 	// XXX: remember to update # of items
 	unsigned int NO_OF_ELEMENTS = 3;
 	char debugthing = '0';
+	bool apressed = false;
 
 	while (1) {
-		bool apressed = false;
 		switch (event_pop()) {
 		case EVENT_LAST:
 			display_clear(&dp);
@@ -789,6 +789,7 @@ main(void)
 			if (i > 0)
 				i--;
 			apressed = true;
+			break;
 
 		case EVENT_BUTTON_B_DOWN:
 			if (i < NO_OF_ELEMENTS - 1)
@@ -826,6 +827,8 @@ main(void)
 		default:
 			/* do nothing */
 			break;
+
+		apressed = false;
 		}
 	}
 }
