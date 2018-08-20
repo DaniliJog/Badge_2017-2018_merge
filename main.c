@@ -835,7 +835,13 @@ main(void)
 
 		}
 		if (apressed && bpressed) {
-			debugthing = (char) i;
+			if (i == 0) {
+				debugthing = '0';
+			} else if (i == 1) {
+				debugthing = '1';
+			} else if (i == 2) {
+				debugthing = '2';
+			}
 		}
 	}
 }
