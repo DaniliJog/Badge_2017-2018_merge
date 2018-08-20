@@ -754,14 +754,10 @@ main(void)
 		switch (event_pop()) {
 		case EVENT_LAST:
 			display_clear(&dp);
-			printf("\n\n"
-					"    Bornhack\n"
-					" Make Tradition\n"
-					"      2017\n"
-					"   bornhack.dk\n"
-					"    %2d %2d %2d\n"
-					"    %cR %cG %cB",
-					rgb[0], rgb[1], rgb[2],
+			printf("TEST MENU"
+					"%c Menu item 1",
+					"%c Menu item 2",
+					"%c Menu item 3"
 					(i==0) ? '*' : ' ',
 					(i==1) ? '*' : ' ',
 					(i==2) ? '*' : ' ');
