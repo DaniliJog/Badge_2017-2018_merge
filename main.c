@@ -753,19 +753,22 @@ main(void)
 
 	// XXX: remember to update # of items
 	unsigned int NO_OF_ELEMENTS = 3;
+	char debugthing = '0';
 
 	while (1) {
+		bool apressed = false;
 		switch (event_pop()) {
 		case EVENT_LAST:
 			display_clear(&dp);
 			printf("\n\n"
 					"TEST MENU\n"
 					"%c Snake\n"
-					"%c Something else\n"
-					"%c Something good\n",
+					"%c Thing 2\n"
+					"%c Thing 3\n"
+					"%c debugthing",
 					(i==0) ? '*' : ' ',
 					(i==1) ? '*' : ' ',
-					(i==2) ? '*' : ' ');
+					(i==2) ? '*' : ' ', debugthing);
 			display_update(&dp);
 			break;
 
@@ -784,11 +787,12 @@ main(void)
 		case EVENT_BUTTON_A_DOWN:
 			if (i > 0)
 				i--;
-			bool apressed = true;
+			apressed = true;
 
 		case EVENT_BUTTON_B_DOWN:
 			if (i < NO_OF_ELEMENTS - 1)
 				i++;
+
 			if (apressed) {
 				printf("WOW TEXT\n");
 			}
