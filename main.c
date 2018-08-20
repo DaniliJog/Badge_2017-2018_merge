@@ -788,7 +788,7 @@ main(void)
 		// BUTTONS
 		case EVENT_BUTTON_A_DOWN:
 			apressed = true;
-			if (i > 0 && !apressed)
+			if (i > 0 &&)
 				i--;
 			break;
 
@@ -798,7 +798,7 @@ main(void)
 
 		case EVENT_BUTTON_B_DOWN:
 			bpressed = true;
-			if (i < NO_OF_ELEMENTS - 1 && !bpressed)
+			if (i < NO_OF_ELEMENTS - 1)
 				i++;
 			break;
 
