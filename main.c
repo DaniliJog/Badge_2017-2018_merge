@@ -753,7 +753,7 @@ main(void)
 
 	// XXX: remember to update # of items
 	unsigned int NO_OF_ELEMENTS = 3;
-	char debugthing = '0';
+	char debugthing = 'x';
 	bool apressed = false;
 	bool bpressed = false;
 
@@ -835,7 +835,7 @@ main(void)
 
 		}
 		if (apressed && bpressed) {
-			debugthing = '1';
+			debugthing = char(i);
 		}
 	}
 }
