@@ -702,6 +702,18 @@ enter_em4(void)
 
 //
 ///
+/// FADING BUTTON LIGHTS 
+///
+//
+static void animate_led(){
+	rgb[0] = (int)(24 * (0.5 * cos(rtc_counter()/1000.0) + 0.5));
+	rgb[1] = (int)(24 * (0.5 * cos(rtc_counter()/2300.0) + 0.5));
+	rgb[2] = (int)(24 * (0.5 * cos(rtc_counter()/666.0) + 0.5));
+	rgb_set(rgb[0], rgb[1], rgb[2]);
+}
+
+//
+///
 /// SNAKE
 ///
 //
@@ -1021,6 +1033,7 @@ main(void)
 				debugthing = '2';
 			}
 		}
+		animate_led();
 	}
 }
 
