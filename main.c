@@ -705,6 +705,7 @@ enter_em4(void)
 /// FADING BUTTON LIGHTS 
 ///
 //
+unsigned int rgb[3] = {20,0,0};
 static void animate_led(){
 	rgb[0] = (int)(24 * (0.5 * cos(rtc_counter()/1000.0) + 0.5));
 	rgb[1] = (int)(24 * (0.5 * cos(rtc_counter()/2300.0) + 0.5));
